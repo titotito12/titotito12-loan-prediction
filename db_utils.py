@@ -30,6 +30,14 @@ class RDSDatabaseConnector():
     '''
 
     def __init__(self, credentials_dict: dict):
+       #HOST = creds["DB_HOST"]
+       #PORT = creds["DB_PORT"]
+        #PASS = creds["DB_PASS"]
+        #USERNAME = creds["DB_USERNAME"]
+        #DB_NAME = creds["DB_NAME"]
+
+        #engine = sqlalchemy.create_engine(f"{self.db_api}+psycopg2://{USERNAME}:{PASS}@{HOST}:{PORT}/{DB_NAME}")
+        #return engine
 
         '''
         This method is used to initialise this instance of the RDSDatabaseConnector class.
