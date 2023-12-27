@@ -1,5 +1,5 @@
 **Exploratory Data Analysis: Customer Loans**
-B**y Emmanuel Adewale**
+**By Emmanuel Adewale**
 
 Description
 Installation Instructions
@@ -17,7 +17,7 @@ copy the repository URL by clicking '<> Code' above the list of files in GitHub 
 in your CLI go to the location where you wish to clone your directory.
 Type the following 'git clone' command with the 'HTTPS' URL:
 
-git clone https://
+git clone git@github.com:titotito12/titotito12-loan-prediction.git
 
 Press 'Enter'.
 Ensure there is the 'environment.yaml' file. This will be used to clone the conda environment with all the packages and versions needed to run the code in this repository. Using conda on the CLI on your machine write the following command:
