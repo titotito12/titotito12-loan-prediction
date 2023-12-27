@@ -21,7 +21,7 @@ credentials: dict = extract_credentials()
 
 # Creates class object to connect to RDS database and extract data.
 class RDSDatabaseConnector():
-
+    
     '''
     This class is used to establish a connection with the AiCore RDS containing loan payments information.
 
@@ -30,11 +30,11 @@ class RDSDatabaseConnector():
     '''
 
     def __init__(self, credentials_dict: dict):
-       #HOST = creds["DB_HOST"]
-       #PORT = creds["DB_PORT"]
-        #PASS = creds["DB_PASS"]
-        #USERNAME = creds["DB_USERNAME"]
-        #DB_NAME = creds["DB_NAME"]
+       #RDS_HOST: my-first-rds-db.c4cc08jpe0kc.eu-west-2.rds.amazonaws.com
+       #RDS_PASSWORD: titotito1257
+       # RDS_USER: postgress
+        #RDS_DATABASE:  my-first-rds-db
+       # RDS_PORT: 5432
 
         #engine = sqlalchemy.create_engine(f"{self.db_api}+psycopg2://{USERNAME}:{PASS}@{HOST}:{PORT}/{DB_NAME}")
         #return engine
@@ -54,9 +54,13 @@ class RDSDatabaseConnector():
         '''
         This method is used to create the SQLAlchemy engine which will be required to connect to the AiCore RDS.
         '''
+        
 
-        self.engine = create_engine(f"postgresql+psycopg2://{self.credentials_dict['RDS_USER']}:{self.credentials_dict['RDS_PASSWORD']}@{self.credentials_dict['RDS_HOST']}:{self.credentials_dict['RDS_PORT']}/{self.credentials_dict['RDS_DATABASE']}")
 
+ 
+        self.engine = create_engine(f"sqlalchemy://@{self.credentials_dict['RDS_HOST']}:{self.credentials_dict['RDS_PASS']}:{self.credentials_dict['RDS_USER']}:{self.credentials_dict['RDS_DB']}:{self.credentials_dict['RDS_PORT']}")
+
+        #self.engine = create_engine(f"postgresql+psycopg2://{self.credentials_dict['RDS_HOST']}:{self.credentials_dict['PORT']}:{self.credentials_dict['PASS']}:{self.credentials_dict['USERNAME']}:{self.credentials_dict['DB_NAME']}")
     # Establishes a connection to the database and creates a pandas dataframe from the 'loan payments' table.
     def extract_loans_data(self):
 
