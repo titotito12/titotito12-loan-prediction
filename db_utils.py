@@ -18,6 +18,8 @@ def extract_credentials():
 
 # Store the dictionary into a variable.
 credentials: dict = extract_credentials()
+credentials= extract_credentials()
+print(credentials)
 
 # Creates class object to connect to RDS database and extract data.
 class RDSDatabaseConnector():
@@ -30,12 +32,7 @@ class RDSDatabaseConnector():
     '''
 
     def __init__(self, credentials_dict: dict):
-       #RDS_HOST: my-first-rds-db.c4cc08jpe0kc.eu-west-2.rds.amazonaws.com
-       #RDS_PASSWORD: titotito1257
-       # RDS_USER: postgress
-        #RDS_DATABASE:  my-first-rds-db
-       # RDS_PORT: 5432
-
+       
         #engine = sqlalchemy.create_engine(f"{self.db_api}+psycopg2://{USERNAME}:{PASS}@{HOST}:{PORT}/{DB_NAME}")
         #return engine
 
@@ -58,11 +55,14 @@ class RDSDatabaseConnector():
 
 
  
-        self.engine = create_engine(f"sqlalchemy://@{self.credentials_dict['RDS_HOST']}:{self.credentials_dict['RDS_PASS']}:{self.credentials_dict['RDS_USER']}:{self.credentials_dict['RDS_DB']}:{self.credentials_dict['RDS_PORT']}")
-
-        #self.engine = create_engine(f"postgresql+psycopg2://{self.credentials_dict['RDS_HOST']}:{self.credentials_dict['PORT']}:{self.credentials_dict['PASS']}:{self.credentials_dict['USERNAME']}:{self.credentials_dict['DB_NAME']}")
+        
+         #You currently have sqlalchemy://@{HOST}:{PASSWORD}:{USERNAME}:{DATABASE}:{PORT}"
+        #self.engine = create_engine(f"postgresql+psycopg2://{self.credentials_dict['RDS_USER']}:{self.credentials_dict['RDS_PASSWORD']}@{self.credentials_dict['RDS_HOST']}:{self.credentials_dict['RDS_DATABASE']}/{self.credentials_dict['RDS_PORT']}")
     # Establishes a connection to the database and creates a pandas dataframe from the 'loan payments' table.
+        self.engine = create_engine(f"postgresql+psycopg2://{self.credentials_dict['RDS_USER']}:{self.credentials_dict['RDS_PASSWORD']}@{self.credentials_dict['RDS_HOST']}:{self.credentials_dict['RDS_PORT']}/{self.credentials_dict['RDS_DATABASE']}")
     def extract_loans_data(self):
+        
+        
 
         '''
         This method is used to establish a connection to the RDS and extract the necessary 'loan_payments' table into a pandas dataframe.
@@ -72,6 +72,7 @@ class RDSDatabaseConnector():
         '''
 
         with self.engine.connect() as connection:
+            
             self.loan_payments_df = pd.read_sql_table('loan_payments', self.engine)
             return self.loan_payments_df
 
@@ -89,7 +90,8 @@ def save_data_to_csv(loans_df: pd.DataFrame):
         loans_df.to_csv(file, encoding= 'utf-8', index= False)
 
 if __name__ == '__main__':
-    connector = RDSDatabaseConnector(credentials) # Instantiates the 'RDSDatabaseConnector' class using the .
+    connector = RDSDatabaseConnector(extract_credentials())
+    #connector = RDSDatabaseConnector(credentials) # Instantiates the 'RDSDatabaseConnector' class using the .
     # Calling all defined methods:
     connector.create_engine() # Creates the sqlalchemy engine to establish connection.
     extracted_data_frame: pd.DataFrame = connector.extract_loans_data() # Extracts sql data to a pandas dataframe.

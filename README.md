@@ -1,5 +1,5 @@
 **Exploratory Data Analysis: Customer Loans**
-B**y Emmanuel Adewale**
+**By Emmanuel Adewale**
 
 Description
 Installation Instructions
